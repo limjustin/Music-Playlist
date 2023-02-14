@@ -1,11 +1,12 @@
 package limjustin.playlist.domain.music;
 
 import limjustin.playlist.domain.artist.Artist;
+import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity @Getter
 @Table(name = "MUSIC")
 public class Music {
 
@@ -27,4 +28,10 @@ public class Music {
 
     private String link;  // 유튜브 링크
     private String coverImg;  // 앨범 커버 이미지
+
+    // 연관관계 편의 메서드 (setArtist)
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+        artist.getMusics().add(this);
+    }
 }

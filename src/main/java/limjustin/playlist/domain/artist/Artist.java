@@ -1,9 +1,14 @@
 package limjustin.playlist.domain.artist;
 
+import limjustin.playlist.domain.music.Music;
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Entity @Getter
 @Table(name = "Artist")
 public class Artist {
 
@@ -24,4 +29,7 @@ public class Artist {
     private String name;  // 아티스트 이름
 
     private String profileImg;  // 프로필 이미지
+
+    @OneToMany(mappedBy = "artist")  // 조회용 리스트 (Artist -> Music)
+    private List<Music> musics = new ArrayList<>();
 }
