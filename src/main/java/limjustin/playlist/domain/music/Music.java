@@ -2,11 +2,12 @@ package limjustin.playlist.domain.music;
 
 import limjustin.playlist.domain.artist.Artist;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity @Getter
+@Entity @Getter @Setter
 @Table(name = "MUSIC")
 public class Music {
 
@@ -14,7 +15,7 @@ public class Music {
     @Column(name = "music_id")
     private Long id;  // PK
 
-    @ManyToOne
+    @ManyToOne @NotNull
     @JoinColumn(name = "artist_id")
     private Artist artist;  // 아티스트
 

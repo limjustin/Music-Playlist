@@ -15,7 +15,7 @@ public class Playlist {
     @Column(name = "playlist_id")
     private Long id;  // PK
 
-    @ManyToOne
+    @ManyToOne @NotNull
     @JoinColumn(name = "user_id")
     private User user;
 

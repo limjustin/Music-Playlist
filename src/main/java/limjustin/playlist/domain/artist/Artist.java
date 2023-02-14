@@ -2,13 +2,14 @@ package limjustin.playlist.domain.artist;
 
 import limjustin.playlist.domain.music.Music;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity @Getter
+@Entity @Getter @Setter
 @Table(name = "Artist")
 public class Artist {
 
