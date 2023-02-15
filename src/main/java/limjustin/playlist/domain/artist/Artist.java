@@ -2,6 +2,8 @@ package limjustin.playlist.domain.artist;
 
 import limjustin.playlist.domain.music.Music;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
+@NoArgsConstructor
 @Table(name = "Artist")
 public class Artist {
 
@@ -33,4 +36,11 @@ public class Artist {
 
     @OneToMany(mappedBy = "artist")  // 조회용 리스트 (Artist -> Music)
     private List<Music> musics = new ArrayList<>();
+
+    public Artist(String name, Type type, Genre genre, String profileImg) {
+        this.name = name;
+        this.type = type;
+        this.genre = genre;
+        this.profileImg = profileImg;
+    }
 }

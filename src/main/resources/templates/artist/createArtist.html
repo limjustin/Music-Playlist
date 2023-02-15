@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+      .fieldError {
+          border-color: #bd2130;
+} </style>
+<body>
+  <div class="container">
+
+      <div th:replace="fragments/bodyheader :: bodyheader"/>
+
+      <form role="form" action="/artist/new" th:object="${formDto}" method="post">
+          <div class="form-group">
+              <label th:for="name">이름</label>
+              <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
+                     th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+              <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+          </div>
+
+          <div class="form-group">
+              <label th:for="type">타입</label>
+              <select th:field="*{type}">
+                <option th:each="typeOpt : ${T(limjustin.playlist.domain.artist.Type).values()}" th:value="${typeOpt}" th:text="${typeOpt.displayValue}"></option>
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label th:for="genre">장르</label>
+              <select th:field="*{genre}">
+                  <option th:each="genreOpt : ${T(limjustin.playlist.domain.artist.Genre).values()}" th:value="${genreOpt}" th:text="${genreOpt.displayValue}"></option>
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label th:for="profileImg">프로필 이미지 등록</label>
+              <input type="text" th:field="*{profileImg}" class="form-control">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <br/>
+      <div th:replace="fragments/footer :: footer" />
+
+  </div>
+</body>
+</html>

@@ -30,4 +30,8 @@ public class ArtistRepository {
         return em.createQuery("SELECT a from Artist a", Artist.class)
                 .getResultList();
     }
+
+    public void remove(Artist artist) {
+        em.remove(artist);
+    }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyheader :: bodyheader" />
+    <div class="jumbotron" style="text-align: center"> <h1>PLAYLIST</h1> <br>
+        <p class="lead">아티스트</p> <p>
+            <a class="btn btn-lg btn-primary" href="/artist/new">가수 등록</a>
+            <a class="btn btn-lg btn-primary" href="/artist">가수 조회</a> </p>
+        <p class="lead">음악</p> <p>
+            <a class="btn btn-lg btn-success" href="/music/new">음악 등록</a>
+            <a class="btn btn-lg btn-success" href="/music">음악 조회</a> </p>
+        <p class="lead">플레이리스트</p> <p>
+            <a class="btn btn-lg btn-warning" href="/playlist/new">플리 등록</a>
+            <a class="btn btn-lg btn-warning" href="/playlist">플리 조회</a> </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

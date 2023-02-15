@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyheader :: bodyheader"/>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th> <th>이름</th> <th>타입</th> <th>장르</th> <th>이미지</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="artist : ${artistList}">
+                        <td th:text="${artist.id}"></td>
+                        <td><a href="#" th:href="@{/artist/{id} (id=${artist.id})}"><div th:text="${artist.name}"/></a> </td>
+                        <td th:text="${artist.type.displayValue}"></td>
+                        <td th:text="${artist.genre.displayValue}"></td>
+                        <td th:text="${artist.profileImg}"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+</body>
+</html>

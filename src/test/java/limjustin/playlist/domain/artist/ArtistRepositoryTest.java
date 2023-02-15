@@ -3,6 +3,7 @@ package limjustin.playlist.domain.artist;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -46,6 +47,29 @@ class ArtistRepositoryTest {
         assertThat(findArtists.get(0)).isEqualTo(artist1);
         assertThat(findArtists.get(1)).isEqualTo(artist2);
         assertThat(findArtists.get(2)).isEqualTo(artist3);
+    }
+
+    @Test
+    void 아티스트_삭제() {
+        // given
+        Artist artist1 = makeArtist("Girls Generation", Genre.DANCE, Type.WOMAN_GROUP);  // id = 1
+        Artist artist2 = makeArtist("ITZY", Genre.POP, Type.WOMAN_GROUP);  // id = 2
+
+        artistRepository.save(artist1);
+        artistRepository.save(artist2);
+
+        // when
+        artistRepository.remove(artist1);
+
+        Artist artist3 = makeArtist("IZ*ONE", Genre.POP, Type.WOMAN_GROUP);  // id = 3
+        artistRepository.save(artist3);
+
+        // then
+        Artist findArtist1 = artistRepository.findAll().get(0);  // Expected : artist2
+        assertThat(findArtist1).isEqualTo(artist2);
+
+        Artist findArtist2 = artistRepository.findAll().get(1);  // Expected : artist3
+        assertThat(findArtist2.getId()).isEqualTo(3);
     }
 
     private Artist makeArtist(String name, Genre genre, Type type) {

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyheader :: bodyheader"/>
+
+    <div>
+      <h4>아티스트 이름</h4><li th:text="${artist.name}"></li>
+      <h4>타입</h4><li th:text="${artist.type.displayValue}"></li>
+      <h4>장르</h4><li th:text="${artist.genre.displayValue}"></li>
+      <h4>프로필이미지</h4><li th:text="${artist.profileImg}"></li>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+</body>
+</html>

@@ -2,6 +2,10 @@ package limjustin.playlist.service;
 
 import limjustin.playlist.domain.artist.Artist;
 import limjustin.playlist.domain.artist.ArtistRepository;
+import limjustin.playlist.domain.artist.Genre;
+import limjustin.playlist.domain.artist.Type;
+import limjustin.playlist.dto.artist.ArtistResponseDto;
+import limjustin.playlist.dto.artist.ArtistSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,19 +19,38 @@ public class ArtistService {
     private final ArtistRepository artistRepository;
 
     @Transactional
-    public void join(Artist artist) {
-        artistRepository.save(artist);
+    public void join(ArtistSaveDto artist) {
+        artistRepository.save(artist.toEntity());  // DTO 말고 엔티티를 저장해야하므로 DB에 들어가기 전에 DTO -> Artist 엔티티로 변환
     }
 
-    public Artist findOneArtistById(Long id) {
-        return artistRepository.findOneById(id);
+    public ArtistResponseDto findOneArtistById(Long id) {
+        Artist findArtist = artistRepository.findOneById(id);
+        ArtistResponseDto responseDto = new ArtistResponseDto(findArtist);
+        return responseDto;
     }
 
     public Artist findOneArtistByName(String name) {
         return artistRepository.findOneByName(name);
     }
 
-    public List<Artist> findAllArtist() {
-        return artistRepository.findAll();
+    public List<ArtistResponseDto> findAllArtist() {
+        List<Artist> findList = artistRepository.findAll();
+        ArtistResponseDto responseDto = new ArtistResponseDto(findList);  // 웹에서 보여지기 전에 Entity -> DTO 변환
+        return responseDto.getResponseDtoList();
+    }
+
+    @Transactional
+    public void update(Long id, String name, Type type, Genre genre, String profileImg) {
+        Artist findArtist = artistRepository.findOneById(id);
+        findArtist.setName(name);
+        findArtist.setType(type);
+        findArtist.setGenre(genre);
+        findArtist.setProfileImg(profileImg);  // 변경 감지
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Artist findArtist = artistRepository.findOneById(id);
+        artistRepository.remove(findArtist);
     }
 }
