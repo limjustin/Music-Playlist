@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter @Setter
-public class ArtistFormDto {  //
+public class ArtistFormDto {
 
     @NotEmpty(message = "아티스트 이름은 필수로 작성하세요.")  // String 타입은 NotEmpty
     private String name;  // 아티스트 이름
@@ -20,5 +20,5 @@ public class ArtistFormDto {  //
     @NotNull(message = "아티스트 장르는 필수로 지정하세요.")
     private Genre genre;  // 장르 [발라드, 팝, 힙합, 댄스, 알앤비, 트로트]
 
-    private String profileImg;  // 프로필 이미지
+    private byte[] profileImg;  // 프로필 이미지
 }

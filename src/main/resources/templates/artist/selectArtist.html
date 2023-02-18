@@ -9,12 +9,12 @@
       <h4>아티스트 이름</h4><li th:text="${artist.name}"></li>
       <h4>타입</h4><li th:text="${artist.type.displayValue}"></li>
       <h4>장르</h4><li th:text="${artist.genre.displayValue}"></li>
-      <h4>프로필이미지</h4><li th:text="${artist.profileImg}"></li>
+      <h4>프로필 이미지</h4><img th:src="@{http://localhost:8080/artist/img/{id} (id=${artist.id})}" width="25%">
     </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <div style="padding-top: 10px; padding-bottom: 10px;">
+        <a class="btn btn-secondary" th:href="@{/artist/{id}/edit (id=${artist.id})}">수정</a>
+        <a class="btn btn-info" href="/artist">뒤로</a>
     </div>
 
     <div th:replace="fragments/footer :: footer"/>

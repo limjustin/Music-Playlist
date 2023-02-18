@@ -1,19 +1,21 @@
 package limjustin.playlist.web;
 
-import limjustin.playlist.domain.artist.Artist;
 import limjustin.playlist.dto.artist.ArtistFormDto;
 import limjustin.playlist.dto.artist.ArtistResponseDto;
 import limjustin.playlist.dto.artist.ArtistSaveDto;
 import limjustin.playlist.service.ArtistService;
+import limjustin.playlist.ImageUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -29,13 +31,13 @@ public class ArtistController {
     }
 
     @PostMapping("/artist/new")
-    public String createArtist(@Valid ArtistFormDto formDto) {
+    public String createArtist(@Valid ArtistFormDto formDto, @RequestParam("file") MultipartFile file) throws IOException {
         ArtistSaveDto artist = new ArtistSaveDto();
 
         artist.setName(formDto.getName());
         artist.setType(formDto.getType());
         artist.setGenre(formDto.getGenre());
-        artist.setProfileImg(formDto.getProfileImg());
+        artist.setProfileImg(ImageUtils.compressImage(file.getBytes()));
 
         artistService.join(artist);
         return "redirect:/main";
@@ -46,6 +48,14 @@ public class ArtistController {
         List<ArtistResponseDto> artistList = artistService.findAllArtist();
         model.addAttribute("artistList", artistList);
         return "artist/findArtist";
+    }
+
+    @GetMapping("/artist/img/{fileName}")
+    public ResponseEntity<byte[]> getProfileImg(@PathVariable("fileName") Long id) {
+        ArtistResponseDto findArtist = artistService.findOneArtistById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(findArtist.getProfileImg());
     }
 
     @GetMapping("/artist/{id}")
@@ -63,15 +73,15 @@ public class ArtistController {
         formDto.setName(findArtist.getName());
         formDto.setType(findArtist.getType());
         formDto.setGenre(findArtist.getGenre());
-        formDto.setProfileImg(findArtist.getProfileImg());
+        formDto.setProfileImg(findArtist.getProfileImg());  // 고려해보기
 
         model.addAttribute("formDto", formDto);
         return "artist/updateArtist";
     }
 
     @PostMapping("/artist/{id}/edit")
-    public String updateArtist(@PathVariable Long id, @ModelAttribute("formDto") ArtistFormDto formDto) {
-        artistService.update(id, formDto.getName(), formDto.getType(), formDto.getGenre(), formDto.getProfileImg());
+    public String updateArtist(@PathVariable Long id, @ModelAttribute("formDto") ArtistFormDto formDto, @RequestParam("file") MultipartFile file) throws IOException {
+        artistService.update(id, formDto.getName(), formDto.getType(), formDto.getGenre(), ImageUtils.compressImage(file.getBytes()));
         return "redirect:/artist";
     }
 }

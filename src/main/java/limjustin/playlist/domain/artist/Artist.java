@@ -3,7 +3,6 @@ package limjustin.playlist.domain.artist;
 import limjustin.playlist.domain.music.Music;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -32,12 +31,13 @@ public class Artist {
     @Column(length = 20)
     private String name;  // 아티스트 이름
 
-    private String profileImg;  // 프로필 이미지
+    @Lob
+    private byte[] profileImg;  // 프로필 이미지
 
     @OneToMany(mappedBy = "artist")  // 조회용 리스트 (Artist -> Music)
     private List<Music> musics = new ArrayList<>();
 
-    public Artist(String name, Type type, Genre genre, String profileImg) {
+    public Artist(String name, Type type, Genre genre, byte[] profileImg) {
         this.name = name;
         this.type = type;
         this.genre = genre;

@@ -1,5 +1,6 @@
 package limjustin.playlist.service;
 
+import limjustin.playlist.ImageUtils;
 import limjustin.playlist.domain.artist.Artist;
 import limjustin.playlist.domain.artist.ArtistRepository;
 import limjustin.playlist.domain.artist.Genre;
@@ -25,8 +26,9 @@ public class ArtistService {
 
     public ArtistResponseDto findOneArtistById(Long id) {
         Artist findArtist = artistRepository.findOneById(id);
-        ArtistResponseDto responseDto = new ArtistResponseDto(findArtist);
-        return responseDto;
+        byte[] fileImage = ImageUtils.decompressImage(findArtist.getProfileImg());
+
+        return new ArtistResponseDto(findArtist.getId(), findArtist.getName(), findArtist.getType(), findArtist.getGenre(), fileImage);
     }
 
     public Artist findOneArtistByName(String name) {
@@ -40,12 +42,12 @@ public class ArtistService {
     }
 
     @Transactional
-    public void update(Long id, String name, Type type, Genre genre, String profileImg) {
+    public void update(Long id, String name, Type type, Genre genre, byte[] profileImg) {
         Artist findArtist = artistRepository.findOneById(id);
-        findArtist.setName(name);
+        findArtist.setName(name);  // 변경 감지
         findArtist.setType(type);
         findArtist.setGenre(genre);
-        findArtist.setProfileImg(profileImg);  // 변경 감지
+        findArtist.setProfileImg(profileImg);
     }
 
     @Transactional

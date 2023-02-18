@@ -10,7 +10,8 @@
 
       <div th:replace="fragments/bodyheader :: bodyheader"/>
 
-      <form role="form" action="/artist/new" th:object="${formDto}" method="post">
+      <form role="form" action="/artist/new" th:object="${formDto}" method="post" enctype="multipart/form-data">
+
           <div class="form-group">
               <label th:for="name">이름</label>
               <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
@@ -34,7 +35,7 @@
 
           <div class="form-group">
               <label th:for="profileImg">프로필 이미지 등록</label>
-              <input type="text" th:field="*{profileImg}" class="form-control">
+              <input type="file" id="file" name="file" class="form-control">
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>

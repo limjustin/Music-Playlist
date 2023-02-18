@@ -8,7 +8,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th> <th>이름</th> <th>타입</th> <th>장르</th> <th>이미지</th>
+                        <th>ID</th> <th>이름</th> <th>타입</th> <th>장르</th>
                     </tr>
                 </thead>
 
@@ -18,7 +18,6 @@
                         <td><a href="#" th:href="@{/artist/{id} (id=${artist.id})}"><div th:text="${artist.name}"/></a> </td>
                         <td th:text="${artist.type.displayValue}"></td>
                         <td th:text="${artist.genre.displayValue}"></td>
-                        <td th:text="${artist.profileImg}"></td>
                     </tr>
                 </tbody>
 
