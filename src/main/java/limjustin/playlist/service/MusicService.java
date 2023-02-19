@@ -1,7 +1,10 @@
 package limjustin.playlist.service;
 
+import limjustin.playlist.ImageUtils;
 import limjustin.playlist.domain.music.Music;
 import limjustin.playlist.domain.music.MusicRepository;
+import limjustin.playlist.dto.music.MusicResponseDto;
+import limjustin.playlist.dto.music.MusicSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +18,15 @@ public class MusicService {
     private final MusicRepository musicRepository;
 
     @Transactional
-    public void join(Music music) {
-        musicRepository.save(music);
+    public void join(MusicSaveDto music) {
+        musicRepository.save(music.toEntity());
     }
 
-    public Music findOneMusicById(Long id) {
-        return musicRepository.findOneById(id);
+    public MusicResponseDto findOneMusicById(Long id) {
+        Music findMusic = musicRepository.findOneById(id);
+        byte[] fileImage = ImageUtils.decompressImage(findMusic.getCoverImg());
+
+        return new MusicResponseDto(findMusic.getId(), findMusic.getTitle(), findMusic.getArtist(), findMusic.getLyrics(), findMusic.getLink(), fileImage);
     }
 
     public Music findOneMusicByTitle(String title) {

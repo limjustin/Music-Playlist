@@ -24,6 +24,10 @@ public class ArtistService {
         artistRepository.save(artist.toEntity());  // DTO 말고 엔티티를 저장해야하므로 DB에 들어가기 전에 DTO -> Artist 엔티티로 변환
     }
 
+    public Artist findOneArtistEntityById(Long id) {
+        return artistRepository.findOneById(id);
+    }
+
     public ArtistResponseDto findOneArtistById(Long id) {
         Artist findArtist = artistRepository.findOneById(id);
         byte[] fileImage = ImageUtils.decompressImage(findArtist.getProfileImg());

@@ -2,12 +2,14 @@ package limjustin.playlist.domain.music;
 
 import limjustin.playlist.domain.artist.Artist;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity @Getter @Setter
+@NoArgsConstructor
 @Table(name = "MUSIC")
 public class Music {
 
@@ -27,8 +29,18 @@ public class Music {
     @Column(columnDefinition = "TEXT")
     private String lyrics;  // 노래 가사
 
+    @Lob
+    private byte[] coverImg;  // 앨범 커버 이미지
+
     private String link;  // 유튜브 링크
-    private String coverImg;  // 앨범 커버 이미지
+
+    public Music(Artist artist, String title, String lyrics, byte[] coverImg, String link) {
+        this.artist = artist;
+        this.title = title;
+        this.lyrics = lyrics;
+        this.coverImg = coverImg;
+        this.link = link;
+    }
 
     // 연관관계 편의 메서드 (setArtist)
     public void setArtist(Artist artist) {
