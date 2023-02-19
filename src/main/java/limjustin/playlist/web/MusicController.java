@@ -2,7 +2,6 @@ package limjustin.playlist.web;
 
 import limjustin.playlist.ImageUtils;
 import limjustin.playlist.domain.artist.Artist;
-import limjustin.playlist.domain.music.Music;
 import limjustin.playlist.dto.artist.ArtistResponseDto;
 import limjustin.playlist.dto.music.MusicFormDto;
 import limjustin.playlist.dto.music.MusicResponseDto;
@@ -45,7 +44,6 @@ public class MusicController {
     public String createMusic(@Valid MusicFormDto formDto, @RequestParam("artistId") Long artistId, @RequestParam("file") MultipartFile file) throws IOException {
         MusicSaveDto music = new MusicSaveDto();
         Artist findArtist = artistService.findOneArtistEntityById(artistId);
-        System.out.println("artistId = " + artistId);
 
         music.setTitle(formDto.getTitle());
         music.setArtist(findArtist);  // RequestParam 통해 artistId 받고 실제 Entity 넣어주어야 안 그러면 Null Exception
