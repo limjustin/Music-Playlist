@@ -17,7 +17,7 @@ public class Music {
     @Column(name = "music_id")
     private Long id;  // PK
 
-    @ManyToOne @NotNull
+    @ManyToOne(fetch = FetchType.LAZY) @NotNull
     @JoinColumn(name = "artist_id")
     private Artist artist;  // 아티스트
 
