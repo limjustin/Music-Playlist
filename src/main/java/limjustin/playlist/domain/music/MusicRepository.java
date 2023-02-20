@@ -30,4 +30,8 @@ public class MusicRepository {
         return em.createQuery("SELECT m from Music m", Music.class)
                 .getResultList();
     }
+
+    public void remove(Music music) {
+        em.remove(music);
+    }
 }

@@ -9,7 +9,7 @@
         <h4>제목</h4><li th:text="${music.title}"></li>
         <h4>아티스트</h4><li th:text="${music.artist.name}"></li>
         <h4>가사</h4><li th:text="${music.lyrics}"></li>
-        <h4>링크</h4><li th:text="${music.link}"></li>
+        <h4>링크</h4><li><a th:href="${music.link}">링크</a></li>
         <h4>프로필 이미지</h4><img th:src="@{http://localhost:8080/music/img/{id} (id=${music.id})}" width="25%">
     </div>
 

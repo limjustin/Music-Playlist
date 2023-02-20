@@ -2,6 +2,7 @@ package limjustin.playlist.web;
 
 import limjustin.playlist.ImageUtils;
 import limjustin.playlist.domain.artist.Artist;
+import limjustin.playlist.domain.music.Music;
 import limjustin.playlist.dto.artist.ArtistResponseDto;
 import limjustin.playlist.dto.music.MusicFormDto;
 import limjustin.playlist.dto.music.MusicResponseDto;
@@ -14,10 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -55,6 +53,13 @@ public class MusicController {
         return "redirect:/main";
     }
 
+    @GetMapping("/music")
+    public String findMusics(Model model) {
+        List<Music> musicList = musicService.findAllMusic();
+        model.addAttribute("musicList", musicList);
+        return "music/findMusic";
+    }
+
     @GetMapping("/music/img/{fileName}")
     public ResponseEntity<byte[]> getCoverImg(@PathVariable("fileName") Long id) {
         MusicResponseDto findMusic = musicService.findOneMusicById(id);
@@ -68,5 +73,32 @@ public class MusicController {
         MusicResponseDto music = musicService.findOneMusicById(id);
         model.addAttribute("music", music);
         return "music/selectMusic";
+    }
+
+    @GetMapping("/music/{id}/edit")
+    public String updateMusicForm(@PathVariable Long id, Model model) {
+        MusicResponseDto findMusic = musicService.findOneMusicById(id);
+
+        List<ArtistResponseDto> artists = artistService.findAllArtist();
+        model.addAttribute("artists", artists);
+
+        MusicFormDto formDto = new MusicFormDto();
+
+        formDto.setTitle(findMusic.getTitle());
+        formDto.setArtist(findMusic.getArtist());
+        formDto.setLyrics(findMusic.getLyrics());
+        formDto.setLink(findMusic.getLink());
+        formDto.setCoverImg(findMusic.getCoverImg());
+
+        model.addAttribute("formDto", formDto);
+        return "music/updateMusic";
+    }
+
+    @PostMapping("/music/{id}/edit")
+    public String updateMusic(@PathVariable Long id, @ModelAttribute("formDto") MusicFormDto formDto, @RequestParam("artistId") Long artistId, @RequestParam("file") MultipartFile file) throws IOException {
+        Artist findArtist = artistService.findOneArtistEntityById(artistId);
+
+        musicService.update(id, formDto.getTitle(), findArtist, formDto.getLyrics(), formDto.getLink(), ImageUtils.compressImage(file.getBytes()));
+        return "redirect:/music";
     }
 }

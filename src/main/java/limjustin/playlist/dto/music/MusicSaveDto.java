@@ -17,6 +17,8 @@ public class MusicSaveDto {
     private byte[] coverImg;  // 앨범 커버 이미지
 
     public Music toEntity() {
-        return new Music(artist, title, lyrics, coverImg, link);
+        Music music = new Music(artist, title, lyrics, coverImg, link);
+        music.setArtist(artist);
+        return music;
     }
 }

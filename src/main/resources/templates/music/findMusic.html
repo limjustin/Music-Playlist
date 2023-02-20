@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
+<div class="container">
+    <div th:replace="fragments/bodyheader :: bodyheader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>제목</th> <th>아티스트</th> <th>가사</th> <th>유튜브 링크</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            <tr th:each="music : ${musicList}">
+                <td><a href="#" th:href="@{/music/{id} (id=${music.id})}"><div th:text="${music.title}"/></a></td>
+                <td th:text="${music.artist.name}"></td>
+                <td th:text="${music.lyrics}"></td>
+                <td><a th:href="${music.link}">링크</a></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
 </body>
 </html>

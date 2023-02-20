@@ -21,7 +21,7 @@
 
         <div class="form-group">
             <label th:for="artist">아티스트</label>
-            <select th:name="artistId" id="artist" class="form-control"> <option value="">아티스트 선택</option>
+            <select th:name="artistId" id="artist" class="form-control">
                 <option th:each="artist : ${artists}" th:value="${artist.id}" th:text="${artist.name}"></option>
             </select>
         </div>
