@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +32,12 @@ public class ArtistController {
     }
 
     @PostMapping("/artist/new")
-    public String createArtist(@Valid ArtistFormDto formDto, @RequestParam("file") MultipartFile file) throws IOException {
+    public String createArtist(@ModelAttribute("formDto") @Valid ArtistFormDto formDto, BindingResult result, @RequestParam("file") MultipartFile file) throws IOException {
+
+        if (result.hasErrors()) {
+            return "artist/createArtist";
+        }
+
         ArtistSaveDto artist = new ArtistSaveDto();
 
         artist.setName(formDto.getName());
