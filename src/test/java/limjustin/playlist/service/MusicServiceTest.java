@@ -5,7 +5,6 @@ import limjustin.playlist.domain.artist.Genre;
 import limjustin.playlist.domain.artist.Type;
 import limjustin.playlist.dto.artist.ArtistSaveDto;
 import limjustin.playlist.dto.music.MusicSaveDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

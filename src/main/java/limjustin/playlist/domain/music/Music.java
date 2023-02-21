@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static javax.persistence.FetchType.*;
+
 @Entity @Getter @Setter
 @NoArgsConstructor
 @Table(name = "MUSIC")
@@ -17,7 +19,7 @@ public class Music {
     @Column(name = "music_id")
     private Long id;  // PK
 
-    @ManyToOne(fetch = FetchType.LAZY) @NotNull
+    @ManyToOne(fetch = LAZY) @NotNull
     @JoinColumn(name = "artist_id")
     private Artist artist;  // 아티스트
 
@@ -25,7 +27,6 @@ public class Music {
     @Column(length = 100)
     private String title;  // 노래 제목
 
-    @NotNull
     @Column(columnDefinition = "TEXT")
     private String lyrics;  // 노래 가사
 

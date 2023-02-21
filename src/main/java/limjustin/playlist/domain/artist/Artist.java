@@ -34,7 +34,7 @@ public class Artist {
     @Lob
     private byte[] profileImg;  // 프로필 이미지
 
-    @OneToMany(mappedBy = "artist")  // 조회용 리스트 (Artist -> Music)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.REMOVE)  // 조회용 리스트 (Artist -> Music)
     private List<Music> musics = new ArrayList<>();
 
     public Artist(String name, Type type, Genre genre, byte[] profileImg) {

@@ -18,27 +18,27 @@ class MusicRepositoryTest {
     @Autowired MusicRepository musicRepository;
     @Autowired ArtistRepository artistRepository;
 
-//    @Test
-//    void 음악_등록() {
-//        // given
-//        Artist artist = new Artist();
-//        artist.setName("ITZY");
-//        artist.setGenre(Genre.POP);
-//        artist.setType(Type.WOMAN_GROUP);
-//        artistRepository.save(artist);
-//
-//        Artist findArtist = artistRepository.findOneById(artist.getId());
-//
-//        Music music = new Music();
-//        music.setArtist(findArtist);
-//        music.setTitle("SNEAKERS");
-//        music.setLyrics("Put my sneakers on!");
-//
-//        // when
-//        musicRepository.save(music);
-//
-//        // then
-//        Music findMusic = musicRepository.findOneByTitle(music.getTitle());
-//        assertThat(findMusic).isEqualTo(music);
-//    }
+    @Test
+    void 음악_등록() {
+        // given
+        Artist artist = new Artist();
+        artist.setName("ITZY");
+        artist.setGenre(Genre.POP);
+        artist.setType(Type.WOMAN_GROUP);
+        artistRepository.save(artist);
+
+        Artist findArtist = artistRepository.findOneById(artist.getId());
+
+        Music music = new Music();
+        music.setArtist(findArtist);
+        music.setTitle("SNEAKERS");
+        music.setLyrics("Put my sneakers on!");
+
+        // when
+        musicRepository.save(music);
+
+        // then
+        Music findMusic = musicRepository.findOneByTitle(music.getTitle());
+        assertThat(findMusic).isEqualTo(music);
+    }
 }
