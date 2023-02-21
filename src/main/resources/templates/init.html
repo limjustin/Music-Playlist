@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyheader :: bodyheader" />
+  <div class="jumbotron" style="text-align: center"> <h1>PLAYLIST</h1> <br>
+    <p class="lead">회원</p> <p>
+      <a class="btn btn-lg btn-danger" href="/new">회원 등록</a>
+      <a class="btn btn-lg btn-danger" href="/login">회원 체크</a>
+  </div>
+  <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

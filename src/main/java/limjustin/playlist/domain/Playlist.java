@@ -1,5 +1,6 @@
 package limjustin.playlist.domain;
 
+import limjustin.playlist.domain.user.User;
 import lombok.Getter;
 
 import javax.persistence.*;
