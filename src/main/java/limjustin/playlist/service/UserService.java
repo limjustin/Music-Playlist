@@ -20,6 +20,11 @@ public class UserService {
         userRepository.save(user.toEntity());
     }
 
+    public String getName(Long id) {
+        User findUser = userRepository.findById(id).get();
+        return findUser.getName();
+    }
+
     public Long check(String id, String password) {
         Optional<User> findUser = userRepository.findByNameAndPassword(id, password);
 

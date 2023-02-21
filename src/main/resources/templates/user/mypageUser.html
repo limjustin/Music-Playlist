@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyheader :: bodyheader" />
+  <div class="jumbotron" style="text-align: center"> <h1>PLAYLIST</h1> <br>
+    <p class="lead">마이페이지</p> <p>
+    <h6 style="display:inline">Welcome, <h6 th:text="${userName}" style="display:inline"/></h6>
+  </div>
+  <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

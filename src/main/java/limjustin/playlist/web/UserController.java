@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -51,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("loginDto") @Valid UserLoginDto loginDto, BindingResult result) {
+    public String loginUser(@ModelAttribute("loginDto") @Valid UserLoginDto loginDto, BindingResult result, HttpServletRequest request) {
 
         if (result.hasErrors()) {
             return "user/loginUser";
@@ -63,6 +65,19 @@ public class UserController {
             return "redirect:/";
         }
 
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", userId);
+
         return "redirect:/main";  // 로그인 성공
+    }
+
+    @GetMapping("/mypage")
+    public String mypageUser(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+
+        model.addAttribute("userName", userService.getName(userId));
+
+        return "user/mypageUser";
     }
 }
