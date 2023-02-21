@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +40,14 @@ public class MusicController {
     }
 
     @PostMapping("/music/new")
-    public String createMusic(@Valid MusicFormDto formDto, @RequestParam("artistId") Long artistId, @RequestParam("file") MultipartFile file) throws IOException {
+    public String createMusic(Model model, @ModelAttribute("formDto") @Valid MusicFormDto formDto, BindingResult result, @RequestParam("artistId") Long artistId, @RequestParam("file") MultipartFile file) throws IOException {
+
+        if(result.hasErrors()) {
+            List<ArtistResponseDto> artists = artistService.findAllArtist();
+            model.addAttribute("artists", artists);
+            return "music/createMusic";
+        }
+
         MusicSaveDto music = new MusicSaveDto();
         Artist findArtist = artistService.findOneArtistEntityById(artistId);
 
