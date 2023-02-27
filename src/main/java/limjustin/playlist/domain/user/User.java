@@ -1,6 +1,6 @@
 package limjustin.playlist.domain.user;
 
-import limjustin.playlist.domain.Playlist;
+import limjustin.playlist.domain.playlist.Playlist;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package limjustin.playlist.domain;
+package limjustin.playlist.domain.playlist;
 
 import limjustin.playlist.domain.music.Music;
 

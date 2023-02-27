@@ -6,6 +6,7 @@ import limjustin.playlist.domain.music.Music;
 import limjustin.playlist.domain.music.MusicRepository;
 import limjustin.playlist.dto.music.MusicResponseDto;
 import limjustin.playlist.dto.music.MusicSaveDto;
+import limjustin.playlist.dto.music.MusicSearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,13 @@ public class MusicService {
 
     public List<Music> findAllMusic() {
         return musicRepository.findAll();
+    }
+
+    public List<MusicSearchDto> findAllMusicSearchDto() {
+        List<Music> musics = musicRepository.findAll();
+        MusicSearchDto musicSearchDto = new MusicSearchDto(musics);
+
+        return musicSearchDto.getSearchDtoList();
     }
 
     @Transactional

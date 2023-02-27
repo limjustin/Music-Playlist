@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/bodyheader :: bodyheader"/>
+
+    <form role="form" action="/playlist/new" th:object="${formDto}" method="post">
+
+        <div class="form-group">
+            <label th:for="name">플레이리스트 제목</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="제목을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit 1</button>
+
+    </form>
+
+    <form role="form" action="/playlist/new" th:object="${creationDto}" method="post">
+
+        <table>
+            <tr th:each="music : ${creationDto.getPlaylist}">
+                <td style="padding-top: 10px; padding-bottom: 10px;">
+                    <h6 th:text="${music.title}" style="display:inline"></h6><h6 style="display:inline"> / </h6>
+                    <input type="hidden" th:value="${music.title}">
+                    <h6 th:text="${music.artist.name}" style="display:inline"></h6>
+                    <img th:src="@{http://localhost:8080/music/img/{id} (id=${music.id})}" width="7%">
+                    <input type="checkbox" th:id="${music.id}" th:checked="${music.check}">
+                </td>
+            </tr>
+        </table>
+
+        <button type="submit" class="btn btn-primary">Submit 2</button>
+
+    </form>
+
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+
+</div>
+</body>
+</html>
