@@ -16,6 +16,10 @@ public class UserRepository {
         em.persist(user);
     }
 
+    public User findByIdNonOptional(Long id) {
+        return em.find(User.class, id);
+    }
+
     public Optional<User> findById(Long id) {
         return Optional.of(em.find(User.class, id));  // 로그인 성공 이후에 사용하는 메서드, 확실하게 값이 있으므로 .of 사용하기
     }

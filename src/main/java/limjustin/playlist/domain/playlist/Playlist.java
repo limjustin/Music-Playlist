@@ -27,9 +27,18 @@ public class Playlist {
     @OneToMany(mappedBy = "playlist")  // 조회용 리스트 (Playlist -> Music)
     private List<LinkedTable> musics = new ArrayList<>();
 
+    public Playlist(User user, String name) {
+        this.user = user;
+        this.name = name;
+    }
+
     // 연관관계 편의 메서드 (setUser)
     public void setUser(User user) {
         this.user = user;
         user.getPlaylists().add(this);
+    }
+
+    public void addList(LinkedTable linkedTable) {
+        this.musics.add(linkedTable);
     }
 }

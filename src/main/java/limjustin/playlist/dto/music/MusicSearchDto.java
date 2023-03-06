@@ -17,10 +17,10 @@ public class MusicSearchDto {
     private String title;  // 노래 제목
     private Artist artist;  // 아티스트
     private byte[] coverImg;  // 앨범 커버 이미지
-    private boolean check;
+    private Boolean check;
     private List<MusicSearchDto> searchDtoList = new ArrayList<>();
 
-    public MusicSearchDto(Long id, String title, Artist artist, byte[] coverImg, boolean check) {
+    public MusicSearchDto(Long id, String title, Artist artist, byte[] coverImg, Boolean check) {
         this.id = id;
         this.title = title;
         this.artist = artist;

@@ -25,6 +25,10 @@ public class UserService {
         return findUser.getName();
     }
 
+    public User getUser(Long id) {
+        return userRepository.findByIdNonOptional(id);
+    }
+
     public Long check(String id, String password) {
         Optional<User> findUser = userRepository.findByNameAndPassword(id, password);
 

@@ -19,4 +19,9 @@ public class LinkedTable {
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
+
+    public LinkedTable(Music music, Playlist playlist) {
+        this.music = music;
+        this.playlist = playlist;
+    }
 }
