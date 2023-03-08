@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class PlaylistRepository {
@@ -17,5 +18,11 @@ public class PlaylistRepository {
 
     public void saveLinkedTable(LinkedTable linkedTable) {
         em.persist(linkedTable);
+    }
+
+    public List<Playlist> findPlaylistsByUserId(Long id) {
+        return em.createQuery("SELECT p FROM Playlist p WHERE p.user.id = :id", Playlist.class)
+                .setParameter("id", id)
+                .getResultList();
     }
 }

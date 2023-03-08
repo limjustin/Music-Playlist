@@ -2,6 +2,7 @@ package limjustin.playlist.domain.playlist;
 
 import limjustin.playlist.domain.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter
+@NoArgsConstructor
 @Table(name = "PLAYLIST")
 public class Playlist {
 

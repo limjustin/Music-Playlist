@@ -54,18 +54,32 @@ public class PlaylistController {
 
         for (MusicSearchDto music : musics) {
             if(music.getCheck()) {
-                Music findMusic = musicService.findOneMusicByTitle(music.getTitle());  // 일단 타이틀로 찾았음
-                LinkedTable linkedTable = new LinkedTable(findMusic, playlist);
+                Music findMusic = musicService.findOneMusicByTitle(music.getTitle());  // 일단 타이틀로 찾았음 (나중에 id로 변경)
+                LinkedTable linkedTable = new LinkedTable(findMusic, playlist);  // LinkedTable 객체 생성
+
                 playlist.addList(linkedTable);
-                playlistService.makeLinkedTable(linkedTable);
+                playlistService.makeLinkedTable(linkedTable);  // LinkedTable 영속화
             }
         }
 
         return "redirect:/main";
     }
 
-    // 플레이리스트 수정 및 삭제도 가능해야 한다!
+    @GetMapping("/playlist")
+    public String getPlaylists(HttpServletRequest request, Model model) {
 
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        String userName = userService.getName(userId);
+
+        // 현재 사용자의 플레이리스트 목록을 가져오기
+        List<Playlist> usersPlaylists = playlistService.findPlaylistsByUserId(userId);
+
+        model.addAttribute("userPlaylists", usersPlaylists);
+        model.addAttribute("userName", userName);
+
+        return "playlist/findPlaylist";
+    }
     // 동작 완료되면 dto 부분으로 따로 클래스 만들어주기
     public class CreationDto {
         private List<MusicSearchDto> musics;

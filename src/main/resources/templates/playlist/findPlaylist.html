@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+
+    <div th:replace="fragments/bodyheader :: bodyheader"/>
+
+    <div>
+        <p class="lead" style="display:inline"><h6 th:text="${userName}" style="display:inline"/>'s Playlist</p>
+    </div>
+
+    <table th:each="playlist : ${userPlaylists}">
+        <br><h6 th:text="${playlist.name}" style="display:inline"></h6>
+        <a href="#"> 보기 </a><a href="#"> 수정 </a><a href="#"> 삭제 </a>
+        <tr th:each="table : ${playlist.getMusics()}">
+            <td style="padding-top: 10px; padding-bottom: 10px;">
+                <img th:src="@{http://localhost:8080/music/img/{id} (id=${table.music.id})}" width="7%">
+                <h6 th:text="${table.music.title}" style="display:inline"></h6><h6 style="display:inline"> / </h6>
+                <h6 th:text="${table.music.artist.name}" style="display:inline"></h6>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+
+</div>
+</body>
+</html>

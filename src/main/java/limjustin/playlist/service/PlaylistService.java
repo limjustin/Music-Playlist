@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PlaylistService {
@@ -21,5 +23,9 @@ public class PlaylistService {
     @Transactional
     public void makeLinkedTable(LinkedTable linkedTable) {
         playlistRepository.saveLinkedTable(linkedTable);
+    }
+
+    public List<Playlist> findPlaylistsByUserId(Long id) {
+        return playlistRepository.findPlaylistsByUserId(id);
     }
 }
